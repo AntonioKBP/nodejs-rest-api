@@ -27,39 +27,6 @@ async function getContactById(contactId) {
   }
 }
 
-// async function removeContact(contactId) {
-//   try {
-//     const contacts = await listContacts();
-//     const removeContact = contacts.filter(
-//       (contact) => contact.id !== contactId
-//     );
-//     await fs.writeFile(contactsPath, JSON.stringify(removeContact));
-//     return removeContact;
-//   } catch (error) {
-//     console.log(error);
-//   }
-// }
-
-const removeContact = async (contactId) => {
-  try {
-    const data = await fs.readFile(contactsPath);
-    const contacts = JSON.parse(data);
-
-    const contact = contacts.filter((contact) => {
-      return contact.id === contactId;
-    });
-    const contactsWithoutRemove = contacts.filter((contact) => {
-      return contact.id !== contactId;
-    });
-
-    await fs.writeFile(contactsPath, JSON.stringify(contactsWithoutRemove));
-
-    return contact;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 async function addContact(data) {
   try {
     const contacts = await listContacts();
@@ -68,6 +35,19 @@ async function addContact(data) {
 
     await fs.writeFile(contactsPath, JSON.stringify(contacts));
     return newContact;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function removeContact(contactId) {
+  try {
+    const contacts = await listContacts();
+    const removeContact = contacts.filter(
+      (contact) => contact.id !== contactId
+    );
+    await fs.writeFile(contactsPath, JSON.stringify(removeContact));
+    return removeContact;
   } catch (error) {
     console.log(error);
   }

@@ -4,20 +4,25 @@ const router = express.Router();
 
 const {
   getContacts,
-  getContactById,
-  deleteContact,
-  postContact,
-  upgradeContact,
+  getById,
+  removeContact,
+  addContact,
+  updateContact,
 } = require("../../controllers/contactControllers");
+
+const {
+  checkContactsId,
+  addValidation,
+} = require("../../middlewares/contactMiddleWares");
 
 router.get("/", getContacts);
 
-router.get("/:contactId", getContactById);
+router.get("/:contactId", checkContactsId, getById);
 
-router.post("/", postContact);
+router.post("/", addValidation, addContact);
 
-router.delete("/:contactId", deleteContact);
+router.delete("/:contactId", checkContactsId, removeContact);
 
-router.put("/:contactId", upgradeContact);
+router.put("/:contactId", addValidation, updateContact);
 
 module.exports = router;

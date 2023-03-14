@@ -11,38 +11,39 @@ exports.getContacts = async (req, res, next) => {
   res.status(200).json({ msg: getAllContacts, status: "success" });
 };
 
-exports.getContactById = async (req, res, next) => {
-  const getId = await getContactById(req.params.contactId, req.body);
+exports.getById = async (req, res, next) => {
+  const getId = await getContactById(req.params.contactId);
   if (getId) {
-    return res.status(200).json({ msg: getId, status: "success" });
+    return res.status(200).json({ data: getId });
   } else {
-    return res
-      .status(404)
-      .json({ msg: `No id #${req.params.contactId} was found` });
+    return res.status(404).json({ message: "Not found" });
   }
 };
 
-exports.deleteContact = async (req, res, next) => {
-  const deleteById = await removeContact(req.params.contacId);
-  if (deleteById) {
-    return res
-      .status(200)
-      .json({ msg: `Contact with id${req.params.contactId} deleted` });
-  } else {
-    res.status(404).json({ msg: `No id #${req.params.contactId} was found` });
-  }
-};
-
-exports.postContact = async (req, res, next) => {
+exports.addContact = async (req, res, next) => {
   const addContactEl = addContact(req.body);
   if (addContactEl) {
-    return res.status(201).json({ message: addContactEl, status: "success" });
+    return res.status(201).json({ data: addContactEl });
   } else {
-    res.status(404).json({ message: "Something went wrong", status: "error" });
+    res.status(400).json({ message: "missing required name field" });
   }
 };
 
-exports.upgradeContact = async (req, res, next) => {
+exports.removeContact = async (req, res, next) => {
+  const { contactId } = req.params;
+  const deleteById = await removeContact(contactId);
+  if (deleteById) {
+    return res.status(200).json({ message: "contact deleted" });
+  } else {
+    return res.status(404).json({ message: "Not found" });
+  }
+};
+
+exports.updateContact = async (req, res, next) => {
   const renameContact = await updateContact(req.params.contactId, req.body);
-  res.status(200).json({ msg: renameContact });
+  if (renameContact) {
+    res.status(200).json({ msg: renameContact });
+  } else {
+    res.status(404).json({ message: "Not found" });
+  }
 };
