@@ -4,10 +4,12 @@ const router = express.Router();
 
 const { contacts: ctrl } = require("../../controllers");
 
-const {
-  checkContactsId,
-  addValidation,
-} = require("../../middlewares/contactMiddleWares");
+// const {
+//   checkContactsId,
+//   addValidation,
+// } = require("../../middlewares/contactMiddleWares");
+
+const { checkContactsId, addValidation } = require("../../middlewares");
 
 router.get("/", ctrl.getContacts);
 
