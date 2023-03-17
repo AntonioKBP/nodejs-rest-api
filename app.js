@@ -4,13 +4,18 @@ const cors = require("cors");
 
 // ==========================================================
 const mongoose = require("mongoose");
-const DB_HOST =
-  "mongodb+srv://Anton:k6FnCNPds7p8HxL@cluster0.gr3dwkh.mongodb.net/db-contacts?retryWrites=true&w=majority";
+const dotenv = require("dotenv");
+
+dotenv.config();
+const { DB_HOST } = process.env;
 
 mongoose
   .connect(DB_HOST)
   .then(() => console.log("Database connect"))
-  .catch((error) => console.log("Error"));
+  .catch((error) => {
+    console.log(error.message);
+    process.exit(1);
+  });
 
 // ==========================================================
 
