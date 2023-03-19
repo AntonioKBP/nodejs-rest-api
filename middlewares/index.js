@@ -1,9 +1,11 @@
 const ctrlWrapper = require("./ctrlWrapper");
 const addValidation = require("./addValidation");
-const checkContactsId = require("./checkContactsId");
+const isValidId = require("./isValidId");
+const validation = require("./validation");
 
 module.exports = {
   ctrlWrapper,
   addValidation,
-  checkContactsId,
+  isValidId,
+  validation,
 };
