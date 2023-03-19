@@ -14,11 +14,6 @@ const updateStatusContact = async (req, res, next) => {
   if (changeFavorite) {
     res.status(200).json({ msg: changeFavorite });
   }
-  // if (renameContact) {
-  //   res.status(200).json({ msg: renameContact });
-  // } else {
-  //   res.status(404).json({ message: "Not found" });
-  // }
 };
 
 module.exports = updateStatusContact;
