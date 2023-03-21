@@ -6,32 +6,28 @@ const { contacts: ctrl } = require("../../controllers");
 
 const { isValidId, validation, ctrlWrapper } = require("../../middlewares");
 const {
-  schemaAddOrPutContact,
-  schemaChangeFavorite,
+  joiContactSchema,
+  joiFavoriteSchema,
 } = require("../../models/contactsModel");
 
 router.get("/", ctrlWrapper(ctrl.getContacts));
 
 router.get("/:contactId", isValidId, ctrlWrapper(ctrl.getById));
 
-router.post(
-  "/",
-  validation(schemaAddOrPutContact),
-  ctrlWrapper(ctrl.addNewContact)
-);
+router.post("/", validation(joiContactSchema), ctrlWrapper(ctrl.addNewContact));
 
 router.delete("/:contactId", isValidId, ctrlWrapper(ctrl.deleteContact));
 
 router.put(
   "/:contactId",
   isValidId,
-  validation(schemaAddOrPutContact),
+  validation(joiContactSchema),
   ctrlWrapper(ctrl.modifyContact)
 );
 
 router.patch(
   "/:contactId/favorite",
-  validation(schemaChangeFavorite),
+  validation(joiFavoriteSchema),
   ctrlWrapper(ctrl.updateStatusContact)
 );
 

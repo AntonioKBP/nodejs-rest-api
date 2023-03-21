@@ -21,17 +21,17 @@ const contactSchema = Schema(
   { versionKey: false, timestamps: true }
 );
 
-const schemaAddOrPutContact = Joi.object({
+const joiContactSchema = Joi.object({
   name: Joi.string().required(),
   email: Joi.string().email().required(),
   phone: Joi.string().required(),
   favorite: Joi.boolean().valid(true, false).default(false),
 });
 
-const schemaChangeFavorite = Joi.object({
+const joiFavoriteSchema = Joi.object({
   favorite: Joi.boolean().valid(true, false).required(),
 });
 
 const Contact = model("Contact", contactSchema);
 
-module.exports = { Contact, schemaAddOrPutContact, schemaChangeFavorite };
+module.exports = { Contact, joiContactSchema, joiFavoriteSchema };

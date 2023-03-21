@@ -1,11 +1,11 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const PASSWD_REGEX =
-  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,128})/;
+// const PASSWD_REGEX =
+//   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,128})/;
 const userSubscriptionEnum = require("../constants/userSubscriptionEnum");
 
-const usersSchema = Schema(
+const userSchema = Schema(
   {
     password: {
       type: String,
@@ -29,13 +29,18 @@ const usersSchema = Schema(
   { versionKey: false, timestamps: true }
 );
 
-const schemaAddUser = Joi.object({
-  password: Joi.string().regex(PASSWD_REGEX).required(),
+const joiSignUpSchema = Joi.object({
+  password: Joi.string().required(),
   email: Joi.string().email().required(),
   subscription: Joi.string().valid(...Object.values(userSubscriptionEnum)),
   token: Joi.string(),
 });
 
-const User = model("User", usersSchema);
+const joiLoginSchema = Joi.object({
+  password: Joi.string().required(),
+  email: Joi.string().email().required(),
+});
 
-module.exports = { User, schemaAddUser };
+const User = model("user", userSchema);
+
+module.exports = { User, joiSignUpSchema, joiLoginSchema };
