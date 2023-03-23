@@ -1,6 +1,6 @@
 const { Contact } = require("../../models/contactsModel");
 
-const addNewContact = async (req, res, next) => {
+const addContact = async (req, res, next) => {
   const { _id } = req.user;
   const addContactEl = await Contact.create({ ...req.body, owner: _id });
   if (addContactEl) {
@@ -10,4 +10,4 @@ const addNewContact = async (req, res, next) => {
   }
 };
 
-module.exports = addNewContact;
+module.exports = addContact;

@@ -15,7 +15,7 @@ const {
   joiFavoriteSchema,
 } = require("../../models/contactsModel");
 
-router.get("/", auth, ctrlWrapper(ctrl.getContacts));
+router.get("/", auth, ctrlWrapper(ctrl.getAll));
 
 router.get("/:contactId", isValidId, ctrlWrapper(ctrl.getById));
 
@@ -23,20 +23,22 @@ router.post(
   "/",
   auth,
   validation(joiContactSchema),
-  ctrlWrapper(ctrl.addNewContact)
+  ctrlWrapper(ctrl.addContact)
 );
 
-router.delete("/:contactId", isValidId, ctrlWrapper(ctrl.deleteContact));
+router.delete("/:contactId", auth, isValidId, ctrlWrapper(ctrl.deleteContact));
 
 router.put(
   "/:contactId",
+  auth,
   isValidId,
   validation(joiContactSchema),
-  ctrlWrapper(ctrl.modifyContact)
+  ctrlWrapper(ctrl.updateContact)
 );
 
 router.patch(
   "/:contactId/favorite",
+  auth,
   validation(joiFavoriteSchema),
   ctrlWrapper(ctrl.updateStatusContact)
 );
