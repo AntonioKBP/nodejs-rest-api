@@ -1,6 +1,6 @@
 const express = require("express");
 
-const { ctrlWrapper, validation, auth } = require("../../middlewares");
+const { ctrlWrapper, validation, auth, upload } = require("../../middlewares");
 
 const {
   joiSignUpSchema,
@@ -25,6 +25,13 @@ router.patch(
   auth,
   validation(joiUpdateSubSchema),
   ctrlWrapper(ctrl.updateSubscription)
+);
+
+router.patch(
+  "/avatars",
+  auth,
+  upload.single("avatar"),
+  ctrlWrapper(ctrl.updateAvatar)
 );
 
 module.exports = router;
