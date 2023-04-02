@@ -9,7 +9,7 @@ const signup = async (req, res) => {
   if (user) {
     throw new Conflict({ message: "Email in use" });
   }
-  const avatarUrl = gravatar.url(email);
+  const avatarUrl = gravatar.url(email, { size: "200", default: "monsterid" });
 
   const hashPassword = bcrypt.hashSync(password, bcrypt.genSaltSync(10));
   await User.create({ email, password: hashPassword, subscription, avatarUrl });
