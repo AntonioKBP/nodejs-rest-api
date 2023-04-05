@@ -3,6 +3,7 @@ const auth = require("./auth");
 const isValidId = require("./isValidId");
 const validation = require("./validation");
 const upload = require("./upload");
+// const sendEmail = require("./sendEmail");
 
 module.exports = {
   ctrlWrapper,
@@ -10,4 +11,5 @@ module.exports = {
   isValidId,
   validation,
   upload,
+  // sendEmail,
 };
