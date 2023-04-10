@@ -4,27 +4,27 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 
 // ===============================================
-const sgMail = require("@sendgrid/mail");
+// const sgMail = require("@sendgrid/mail");
 // ===============================================
 
 dotenv.config();
 
-// ===============================================
+// ==================== SendGrid ===========================
 
-const { SENDGRID_API_KEY } = process.env;
-sgMail.setApiKey(SENDGRID_API_KEY);
+// const { SENDGRID_API_KEY } = process.env;
+// sgMail.setApiKey(SENDGRID_API_KEY);
 
-const email = {
-  to: "najig68255@fectode.com",
-  from: "kovsh_anton@ukr.net",
-  subject: "Check mail",
-  html: "<p>Check Test HTML</p>",
-};
+// const email = {
+//   to: "najig68255@fectode.com",
+//   from: "kovsh_anton@ukr.net",
+//   subject: "Check mail",
+//   html: "<p>Check Test HTML</p>",
+// };
 
-sgMail
-  .send(email)
-  .then(() => console.log("Email sent successfully"))
-  .catch((error) => console.log(error.message));
+// sgMail
+//   .send(email)
+//   .then(() => console.log("Email sent successfully"))
+//   .catch((error) => console.log(error.message));
 // ===============================================
 
 const contactsRouter = require("./routes/api/contacts");
